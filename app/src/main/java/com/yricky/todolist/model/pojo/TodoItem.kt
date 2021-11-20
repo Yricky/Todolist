@@ -8,8 +8,8 @@ import android.provider.BaseColumns
  */
 class TodoItem(
     val id:Long,
-    var title:String = "title",
-    var content:String = "content",
+    var title:String = "",
+    var content:String = "",
     var timeStamp:Long = System.currentTimeMillis(),
     var priority:Int = 0,
     var done:Boolean = false

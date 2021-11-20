@@ -26,7 +26,8 @@ object DataBaseModel {
             "$CLM_TITLE TEXT NOT NULL," +
             "$CLM_CONTENT TEXT NOT NULL," +
             "$CLM_TIME INTEGER NOT NULL," +
-            "$CLM_PRIORITY INTEGER NOT NULL" +
+            "$CLM_PRIORITY INTEGER NOT NULL," +
+            "$CLM_DONE INTEGER NOT NULL" +
             ");"
 
     private val cacheDB = DBHelper.writableDatabase
@@ -75,6 +76,7 @@ object DataBaseModel {
     }
 
     fun insert(entries: TodoItem, then:Runnable? = null){
+        if(entries.title.isNotBlank() && entries.content.isNotBlank())
         TodoApp.tpe.execute {
             entries.let {
                 cacheDB.insert(TABLE_NAME,null, ContentValues().apply {

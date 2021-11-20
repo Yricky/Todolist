@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.sp
 import com.yricky.todolist.R
 import com.yricky.todolist.model.DataBaseModel
 import com.yricky.todolist.model.pojo.TodoItem
+import java.text.DateFormat
 import java.util.*
 
 /**
@@ -53,6 +54,8 @@ private fun TodoListItem(item:TodoItem = TodoItem(0),viewModel: MainListViewMode
     ) {
         Row(
             Modifier
+                .clickable {  }
+                .padding(8.dp)
                 .widthIn(max = 700.dp)
                 .fillMaxWidth()
                 .wrapContentHeight(),
@@ -66,14 +69,20 @@ private fun TodoListItem(item:TodoItem = TodoItem(0),viewModel: MainListViewMode
                     item.done = isChecked
                     viewModel?.saveItem(item)
                 })
-            Column(Modifier.width(628.dp)) {
+            Column(Modifier.weight(1f)) {
                 Text(
                     text = item.title,
                     fontSize = if(item.priority>0) 20.sp else 18.sp,
                     color = if(item.priority > 1) Color(0xffcc6666) else Color(0xff999999)
                 )
-                Text(text = item.content)
-                Text(text = Date(item.timeStamp).toString())
+                Text(
+                    text = item.content,
+                    fontSize = 12.sp
+                )
+                Text(
+                    text = DateFormat.getInstance().format(Date(item.timeStamp)),
+                    fontSize = 12.sp
+                )
             }
             Image(
                 painter = painterResource(id = R.drawable.ic_baseline_clear_24),
